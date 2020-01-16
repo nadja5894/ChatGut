@@ -36,6 +36,8 @@ class ChatLogActivity : AppCompatActivity() {
         //Erlaubt, innerhalb des Adapter neue Objekte hinzuzufügen
         recyclerview_chat_log.adapter = adapter
 
+        keyboardManagement()
+
         //Gesamten Nutzer Laden und Nutzername in der Actionbar anzeigen
         toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
         supportActionBar?.title = toUser?.username
@@ -146,13 +148,14 @@ class ChatLogActivity : AppCompatActivity() {
         layoutManager.stackFromEnd = true
         recyclerview_chat_log.layoutManager = layoutManager
         // pushes up recycler view when softkeyboard popups up
-        recyclerview_chat_log.addOnLayoutChangeListener { view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        recyclerview_chat_log.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             if (bottom < oldBottom) {
                 recyclerview_chat_log.postDelayed(Runnable {
                     recyclerview_chat_log.scrollToPosition(recyclerview_chat_log.adapter!!.itemCount -1)
                 }, 100)
             }
         }
+
     }
 }
 
