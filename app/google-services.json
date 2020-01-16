@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "646700111764",
+    "firebase_url": "https://chatgut-fire.firebaseio.com",
+    "project_id": "chatgut-fire",
+    "storage_bucket": "chatgut-fire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646700111764:android:e3aeb3a4b28ee1aca0e181",
+        "android_client_info": {
+          "package_name": "com.example.chatgut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646700111764-lq4vf7l93qvb53ecakam47gppsg6c644.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatgut",
+            "certificate_hash": "d3feede5723e51d94927490b31bdaf954213295b"
+          }
+        },
+        {
+          "client_id": "646700111764-kr141elga8pttu2h6tvperci9s9c2c1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo-b1ptYcSy1zNG24XGwSoktUG2h-KhOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646700111764-kr141elga8pttu2h6tvperci9s9c2c1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
