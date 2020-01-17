@@ -26,6 +26,7 @@ class NewMessageActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Nutzer auswählen"
 
+
         fetchUser()
     }
 
