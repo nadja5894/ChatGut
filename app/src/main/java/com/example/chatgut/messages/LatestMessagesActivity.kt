@@ -15,6 +15,7 @@ import com.example.chatgut.registerlogin.RegisterActivity
 import com.example.chatgut.views.LatestMessageRow
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.mikepenz.materialdrawer.DrawerBuilder
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -61,6 +62,9 @@ class LatestMessagesActivity : AppCompatActivity() {
         fetchCurrentUser()
 
         verifiedUserIsLoggedIn()
+
+        DrawerBuilder().withActivity(this).build()
+
 
 
     }
