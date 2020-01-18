@@ -48,6 +48,11 @@ class LatestMessagesActivity : AppCompatActivity() {
 
             intent.putExtra(USER_KEY, row.chatPartnerUser)
 
+
+
+
+
+
             startActivity(intent)
         }
 
@@ -104,13 +109,22 @@ class LatestMessagesActivity : AppCompatActivity() {
 
     val adapter = GroupAdapter<GroupieViewHolder>()
 
-    //private fun setupDummyRows(){
-      //  val adapter = GroupAdapter<GroupieViewHolder>()
-        //adapter.add(LatestMessageRow())
-        //adapter.add(LatestMessageRow())
-        //adapter.add(LatestMessageRow())
+    var latestMessageRow = RowId()
 
-    //}
+    private fun fetchLatestMessageRow(fromId:String, toId:String){
+
+        val ref = FirebaseDatabase.getInstance().getReference("/latest-messages-row/$fromId/$toId")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                latestMessageRow = p0.getValue(RowId::class.java)!!
+            }
+
+        })
+    }
 
     private fun fetchCurrentUser(){
         val uid = FirebaseAuth.getInstance().uid
@@ -139,6 +153,8 @@ class LatestMessagesActivity : AppCompatActivity() {
 
     }
 
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
        when(item.itemId){
            R.id.menu_new_message -> {
@@ -160,4 +176,8 @@ class LatestMessagesActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.nav_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+}
+
+class RowId(val row:Int){
+    constructor(): this(0)
 }

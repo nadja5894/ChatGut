@@ -118,7 +118,7 @@ class ChatLogActivity : AppCompatActivity() {
         val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
 
-        val chatMessage = ChatMessage(reference.key!!, text, fromId, toId, System.currentTimeMillis() /1000)
+        val chatMessage = ChatMessage(reference.key!!, text, fromId, toId, System.currentTimeMillis() /1000, messageSeen = false)
         reference.setValue(chatMessage)
             .addOnSuccessListener {
                 Log.d(TAG,"Nachricht gespeichert: ${reference.key}")
