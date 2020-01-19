@@ -6,6 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.chatgut.R
 import com.example.chatgut.messages.NewMessageActivity.Companion.USER_KEY
@@ -13,6 +18,7 @@ import com.example.chatgut.models.ChatMessage
 import com.example.chatgut.models.User
 import com.example.chatgut.registerlogin.RegisterActivity
 import com.example.chatgut.views.LatestMessageRow
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -20,10 +26,15 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_latest_messages.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.latest_message_row.view.*
 import kotlinx.android.synthetic.main.user_row_new_messages.view.*
 
-class LatestMessagesActivity : AppCompatActivity() {
+class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    lateinit var toolbar: Toolbar
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navView: NavigationView
 
     companion object {
         var currentUser: User? = null
@@ -34,8 +45,27 @@ class LatestMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+
         recyclerView_latest_messages.adapter = adapter
-        recyclerView_latest_messages.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView_latest_messages.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         //set item click listener for your adapter
         adapter.setOnItemClickListener { item, view ->
@@ -54,6 +84,7 @@ class LatestMessagesActivity : AppCompatActivity() {
 
 
             startActivity(intent)
+
         }
 
         listenForLatestMessages()
@@ -61,6 +92,27 @@ class LatestMessagesActivity : AppCompatActivity() {
         fetchCurrentUser()
 
         verifiedUserIsLoggedIn()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_profile -> {
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_messages -> {
+                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+
+            }
+            R.id.nav_update -> {
+                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+
 
 
     }
