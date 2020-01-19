@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -29,6 +30,7 @@ import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.latest_message_row.view.*
+import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.user_row_new_messages.view.*
 
 class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +60,9 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+
+
 
 
         recyclerView_latest_messages.adapter = adapter
@@ -93,6 +98,7 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
         fetchCurrentUser()
 
         verifiedUserIsLoggedIn()
+        showCurrentProfile()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -119,6 +125,30 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
 
 
+    }
+
+    private fun showCurrentProfile(){
+        val userInfos = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$userInfos")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                currentUser = p0.getValue(User::class.java)
+                Picasso.get()
+                    .load(currentUser?.profileImageURL)
+                    .into(navheader_imageView)
+
+
+
+
+                //navheader_imageView
+                //navheader_TextView_username
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
     }
 
 
