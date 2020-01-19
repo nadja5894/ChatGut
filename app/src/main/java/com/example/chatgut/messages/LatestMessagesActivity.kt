@@ -21,7 +21,7 @@ import com.example.chatgut.views.LatestMessageRow
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.mikepenz.materialdrawer.DrawerBuilder
+
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -115,7 +115,7 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
         return true
 
 
-        DrawerBuilder().withActivity(this).build()
+
 
 
 
