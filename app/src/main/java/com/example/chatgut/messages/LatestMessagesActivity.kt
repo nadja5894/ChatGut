@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.view.menu.MenuView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -137,19 +138,17 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
                     .load(currentUser?.profileImageURL)
                     .into(navheader_imageView)
 
+                navheader_TextView_username.text = currentUser?.username
 
-
-
-                //navheader_imageView
-                //navheader_TextView_username
             }
 
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
         })
     }
+
 
 
     val latestMessagesMap = HashMap<String, ChatMessage>()
