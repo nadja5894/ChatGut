@@ -18,6 +18,7 @@ import com.example.chatgut.R
 import com.example.chatgut.messages.NewMessageActivity.Companion.USER_KEY
 import com.example.chatgut.models.ChatMessage
 import com.example.chatgut.models.User
+import com.example.chatgut.profile.ProfileSettingsActivity
 import com.example.chatgut.registerlogin.RegisterActivity
 import com.example.chatgut.views.LatestMessageRow
 import com.google.android.material.navigation.NavigationView
@@ -51,6 +52,11 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
+        toolbar.setLogo(R.drawable.logo_word)
+
+
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
@@ -109,13 +115,22 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
             }
             R.id.nav_messages -> {
                 Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, NewMessageActivity::class.java)
+                startActivity(intent)
 
             }
             R.id.nav_update -> {
                 Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ProfileSettingsActivity::class.java)
+                startActivity(intent)
+
             }
             R.id.nav_logout -> {
                 Toast.makeText(this, "Sign out clicked", Toast.LENGTH_SHORT).show()
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, RegisterActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -247,12 +262,7 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
                startActivity(intent)
 
            }
-           R.id.menu_sign_out -> {
-               FirebaseAuth.getInstance().signOut()
-               val intent = Intent(this, RegisterActivity::class.java)
-               intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-               startActivity(intent)
-           }
+
        }
         return super.onOptionsItemSelected(item)
     }

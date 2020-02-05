@@ -27,6 +27,7 @@
                     android:text="ChatGut"
                     android:textColor="#FFFFFF"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
