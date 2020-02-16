@@ -34,6 +34,8 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.latest_message_row.view.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.user_row_new_messages.view.*
+import java.lang.Math.random
+import kotlin.math.floor
 
 class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -119,6 +121,9 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 startActivity(intent)
 
             }
+            R.id.nav_messages_urgent -> {
+                newMessageToRandomUser()
+            }
             R.id.nav_update -> {
                 Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, ProfileSettingsActivity::class.java)
@@ -141,6 +146,29 @@ class LatestMessagesActivity : AppCompatActivity(), NavigationView.OnNavigationI
 
 
 
+    }
+
+    private fun newMessageToRandomUser() {
+        val ref = FirebaseDatabase.getInstance().getReference("/users")
+
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var randomIndex = (random() * snapshot.childrenCount).toInt()
+                val user = snapshot.children
+                    .elementAt(randomIndex)
+                    .getValue(User::class.java)
+
+                val intent = Intent(baseContext, ChatLogActivity::class.java)
+                intent.putExtra(USER_KEY, user)
+
+                startActivity(intent)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented")
+            }
+        })
     }
 
     private fun showCurrentProfile(){

@@ -39,7 +39,10 @@ class ChatLogActivity : AppCompatActivity() {
         keyboardManagement()
 
         //Gesamten Nutzer Laden und Nutzername in der Actionbar anzeigen
+
+
         toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+
         supportActionBar?.title = toUser?.username
 
 
